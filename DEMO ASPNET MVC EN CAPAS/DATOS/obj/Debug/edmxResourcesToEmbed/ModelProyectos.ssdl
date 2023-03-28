@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PROYECTOSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Departamento">
+    <Key>
+      <PropertyRef Name="DepartamentoId" />
+    </Key>
+    <Property Name="DepartamentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreDepartamento" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PROYECTOSDB.dbo.Empleado' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="EmpleadoId" />
+    </Key>
+    <Property Name="EmpleadoId" Type="int" Nullable="false" />
+    <Property Name="Nombres" Type="varchar" MaxLength="150" />
+    <Property Name="Apellido" Type="varchar" MaxLength="150" />
+    <Property Name="Email" Type="varchar" MaxLength="150" />
+    <Property Name="Direccion" Type="varchar" MaxLength="150" />
+    <Property Name="Celular" Type="varchar" MaxLength="150" />
+    <Property Name="DepartamentoId" Type="int" />
+    <Property Name="ProyectoId" Type="int" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PROYECTOSDB.dbo.Proyecto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="Proyecto">
+    <Key>
+      <PropertyRef Name="ProyectoId" />
+    </Key>
+    <Property Name="ProyectoId" Type="int" Nullable="false" />
+    <Property Name="NombreProyecto" Type="varchar" MaxLength="150" />
+    <Property Name="FechaInicio" Type="datetime" />
+    <Property Name="FechaFin" Type="datetime" />
+  </EntityType>
+  <EntityContainer Name="PROYECTOSDBModelStoreContainer">
+    <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Empleado" EntityType="Self.Empleado" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Empleado].[EmpleadoId] AS [EmpleadoId], 
+    [Empleado].[Nombres] AS [Nombres], 
+    [Empleado].[Apellido] AS [Apellido], 
+    [Empleado].[Email] AS [Email], 
+    [Empleado].[Direccion] AS [Direccion], 
+    [Empleado].[Celular] AS [Celular], 
+    [Empleado].[DepartamentoId] AS [DepartamentoId], 
+    [Empleado].[ProyectoId] AS [ProyectoId]
+    FROM [dbo].[Empleado] AS [Empleado]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Proyecto" EntityType="Self.Proyecto" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Proyecto].[ProyectoId] AS [ProyectoId], 
+    [Proyecto].[NombreProyecto] AS [NombreProyecto], 
+    [Proyecto].[FechaInicio] AS [FechaInicio], 
+    [Proyecto].[FechaFin] AS [FechaFin]
+    FROM [dbo].[Proyecto] AS [Proyecto]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
